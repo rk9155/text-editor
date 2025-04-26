@@ -7,7 +7,7 @@
 }
 
 .editor-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -34,8 +34,16 @@
 }
 
 .toolbar-button.active {
-  background-color: #666;
-  border-color: #666;
+  background-color: #2563eb;
+  border-color: #2563eb;
+  color: white;
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background-color: #ddd;
+  margin: 0 5px;
 }
 
 .content-area-container {
@@ -90,28 +98,6 @@
 .content-area ul,
 .content-area ol {
   padding-left: 30px;
-}
-
-.callout {
-  padding: 10px 15px;
-  margin: 10px 0;
-  border-radius: 4px;
-  position: relative;
-}
-
-.callout-info {
-  background-color: #e6f7ff;
-  border-left: 4px solid #1890ff;
-}
-
-.callout-warning {
-  background-color: #fff7e6;
-  border-left: 4px solid #fa8c16;
-}
-
-.callout-success {
-  background-color: #f6ffed;
-  border-left: 4px solid #52c41a;
 }
 
 .content-area ul ul,

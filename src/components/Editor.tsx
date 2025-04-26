@@ -23,9 +23,10 @@ const Editor: React.FC = () => {
     execCommand,
     formatBlock,
     insertCodeBlock,
-    insertCallout,
     clearFormatting,
+    clearContent,
     handlePaste,
+    isFormatActive,
   } = useEditorCommands({
     editorRef,
     setContent,
@@ -46,10 +47,11 @@ const Editor: React.FC = () => {
         execCommand={execCommand}
         formatBlock={formatBlock}
         insertCodeBlock={insertCodeBlock}
-        insertCallout={insertCallout}
         clearFormatting={clearFormatting}
+        clearContent={clearContent}
         undo={undo}
         redo={redo}
+        isFormatActive={isFormatActive}
       />
       <ContentArea
         editorRef={editorRef}
