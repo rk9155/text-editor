@@ -8,6 +8,14 @@
 - Advanced keyboard shortcuts with:
 - Keyboard navigation
 
+## Architecture
+
+- App.tsx: Main entry, renders Editor.
+- Editor.tsx: Manages state, formatting logic, and passes handlers to Toolbar and ContentArea.
+- Toolbar.tsx: UI for formatting actions, calls handler props.
+- ContentArea.tsx: The actual editable area where user types.
+- hooks/: Custom React hooks for editor logic (optional, for modularity).
+
 ## Build Intructions
 
 - npm i (install dependencies)
