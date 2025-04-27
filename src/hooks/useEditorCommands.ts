@@ -29,6 +29,9 @@ const useEditorCommands = ({
 
       const range = selection.getRangeAt(0);
 
+      // Store the selection to restore it later
+      const savedSelection = saveSelection();
+
       switch (command) {
         case "bold":
           document.designMode = "on";
@@ -104,8 +107,75 @@ const useEditorCommands = ({
 
           document.designMode = "off";
           break;
+        case "fontName":
+          document.designMode = "on";
+          const fontNode = document.createElement("span");
+          fontNode.style.fontFamily = value;
+          try {
+            range.surroundContents(fontNode);
+          } catch (e) {
+            // If the range spans multiple blocks, we need a different approach
+            const fragment = range.extractContents();
+            fontNode.appendChild(fragment);
+            range.insertNode(fontNode);
+          }
+          document.designMode = "off";
+          break;
+        case "fontSize":
+          document.designMode = "on";
+          const sizeNode = document.createElement("span");
+          sizeNode.style.fontSize = value;
+          try {
+            range.surroundContents(sizeNode);
+          } catch (e) {
+            // If the range spans multiple blocks, we need a different approach
+            const fragment = range.extractContents();
+            sizeNode.appendChild(fragment);
+            range.insertNode(sizeNode);
+          }
+          document.designMode = "off";
+          break;
+        case "textColor":
+          document.designMode = "on";
+          const colorNode = document.createElement("span");
+          colorNode.style.color = value;
+          try {
+            range.surroundContents(colorNode);
+          } catch (e) {
+            // If the range spans multiple blocks, we need a different approach
+            const fragment = range.extractContents();
+            colorNode.appendChild(fragment);
+            range.insertNode(colorNode);
+          }
+          document.designMode = "off";
+          break;
       }
+
+      // Update content and restore selection
       setContent(editorRef.current.innerHTML);
+
+      // Restore the selection state
+      if (savedSelection) {
+        try {
+          const newSelection = window.getSelection();
+          if (newSelection) {
+            const newRange = document.createRange();
+            newRange.setStart(
+              savedSelection.startContainer,
+              savedSelection.startOffset
+            );
+            newRange.setEnd(
+              savedSelection.endContainer,
+              savedSelection.endOffset
+            );
+            newSelection.removeAllRanges();
+            newSelection.addRange(newRange);
+          }
+        } catch (e) {
+          console.error("Could not restore selection", e);
+        }
+      }
+
       setSelection(saveSelection());
     },
     [editorRef, setContent, setSelection, saveSelection]
@@ -285,6 +355,21 @@ const useEditorCommands = ({
               (element.tagName === "LI" &&
                 element.parentElement?.tagName === "UL")
             ) {
+              return true;
+            }
+            break;
+          case "fontName":
+            if (element.style && element.style.fontFamily) {
+              return true;
+            }
+            break;
+          case "fontSize":
+            if (element.style && element.style.fontSize) {
+              return true;
+            }
+            break;
+          case "textColor":
+            if (element.style && element.style.color) {
               return true;
             }
             break;

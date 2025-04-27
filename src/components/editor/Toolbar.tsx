@@ -11,6 +11,18 @@ interface ToolbarProps {
   isFormatActive: (format: string) => boolean;
 }
 
+const fonts = ["Arial", "Times New Roman", "Courier New", "Georgia", "Verdana"];
+const sizes = ["12px", "14px", "16px", "18px", "20px", "24px", "28px", "32px"];
+const colors = [
+  { name: "Black", value: "#000000" },
+  { name: "Red", value: "#FF0000" },
+  { name: "Green", value: "#00FF00" },
+  { name: "Blue", value: "#0000FF" },
+  { name: "Yellow", value: "#FFFF00" },
+  { name: "Pink", value: "#FF00FF" },
+  { name: "Cyan", value: "#00FFFF" },
+];
+
 const Toolbar: React.FC<ToolbarProps> = ({
   execCommand,
   formatBlock,
@@ -54,9 +66,6 @@ const Toolbar: React.FC<ToolbarProps> = ({
           <u>U</u>
         </button>
       </div>
-
-      <div className="divider"></div>
-
       <div className="toolbar-group">
         <button
           className={`toolbar-button ${isFormatActive("h1") ? "active" : ""}`}
@@ -81,8 +90,53 @@ const Toolbar: React.FC<ToolbarProps> = ({
         </button>
       </div>
 
-      <div className="divider"></div>
+      <div className="toolbar-group">
+        <select
+          className="toolbar-select"
+          onChange={(e) => execCommand("fontName", e.target.value)}
+          title="Font Family"
+          defaultValue={fonts[0]}
+        >
+          {fonts.map((font) => (
+            <option key={font} value={font} style={{ fontFamily: font }}>
+              {font}
+            </option>
+          ))}
+        </select>
 
+        <select
+          className="toolbar-select"
+          onChange={(e) => execCommand("fontSize", e.target.value)}
+          title="Font Size"
+          defaultValue={sizes[0]}
+        >
+          {sizes.map((size) => (
+            <option key={size} value={size}>
+              {size}
+            </option>
+          ))}
+        </select>
+
+        <select
+          className="toolbar-select"
+          onChange={(e) => execCommand("textColor", e.target.value)}
+          title="Text Color"
+          defaultValue={colors[0].value}
+        >
+          {colors.map((color) => (
+            <option
+              key={color.value}
+              value={color.value}
+              style={{
+                backgroundColor: color.value,
+                color: color.value === "#000000" ? "white" : "black",
+              }}
+            >
+              {color.name}
+            </option>
+          ))}
+        </select>
+      </div>
       <div className="toolbar-group">
         <button
           className={`toolbar-button ${
@@ -103,9 +157,6 @@ const Toolbar: React.FC<ToolbarProps> = ({
           1. List
         </button>
       </div>
-
-      <div className="divider"></div>
-
       <div className="toolbar-group">
         <button
           className={`toolbar-button ${
@@ -124,9 +175,6 @@ const Toolbar: React.FC<ToolbarProps> = ({
           Code
         </button>
       </div>
-
-      <div className="divider"></div>
-
       <div className="toolbar-group">
         <button
           className="toolbar-button"
@@ -143,8 +191,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
           Clear All
         </button>
       </div>
-
-      <div className="toolbar-group ml-auto">
+      <div className="toolbar-group">
         <button className="toolbar-button" onClick={undo} title="Undo (Ctrl+Z)">
           Undo
         </button>
