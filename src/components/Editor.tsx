@@ -26,7 +26,6 @@ const Editor: React.FC = () => {
     clearFormatting,
     clearContent,
     handlePaste,
-    isFormatActive,
   } = useEditorCommands({
     editorRef,
     setContent,
@@ -51,7 +50,6 @@ const Editor: React.FC = () => {
         clearContent={clearContent}
         undo={undo}
         redo={redo}
-        isFormatActive={isFormatActive}
       />
       <ContentArea
         editorRef={editorRef}

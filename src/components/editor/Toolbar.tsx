@@ -8,11 +8,22 @@ interface ToolbarProps {
   clearContent: () => void;
   undo: () => void;
   redo: () => void;
-  isFormatActive: (format: string) => boolean;
 }
 
-const fonts = ["Arial", "Times New Roman", "Courier New", "Georgia", "Verdana"];
-const sizes = ["12px", "14px", "16px", "18px", "20px", "24px", "28px", "32px"];
+const fonts = ["Arial", "Times New Roman", "Courier New", "Inter", "Roboto"];
+const sizes = [
+  "12px",
+  "14px",
+  "16px",
+  "18px",
+  "20px",
+  "24px",
+  "28px",
+  "32px",
+  "48px",
+  "64px",
+];
+
 const colors = [
   { name: "Black", value: "#000000" },
   { name: "Red", value: "#FF0000" },
@@ -31,7 +42,6 @@ const Toolbar: React.FC<ToolbarProps> = ({
   clearContent,
   undo,
   redo,
-  isFormatActive,
 }) => {
   return (
     <div
@@ -41,25 +51,21 @@ const Toolbar: React.FC<ToolbarProps> = ({
     >
       <div className="toolbar-group">
         <button
-          className={`toolbar-button ${isFormatActive("bold") ? "active" : ""}`}
+          className="toolbar-button"
           onClick={() => execCommand("bold")}
           title="Bold (Ctrl+B)"
         >
           <strong>B</strong>
         </button>
         <button
-          className={`toolbar-button ${
-            isFormatActive("italic") ? "active" : ""
-          }`}
+          className="toolbar-button"
           onClick={() => execCommand("italic")}
           title="Italic (Ctrl+I)"
         >
           <em>I</em>
         </button>
         <button
-          className={`toolbar-button ${
-            isFormatActive("underline") ? "active" : ""
-          }`}
+          className="toolbar-button"
           onClick={() => execCommand("underline")}
           title="Underline (Ctrl+U)"
         >
@@ -68,21 +74,21 @@ const Toolbar: React.FC<ToolbarProps> = ({
       </div>
       <div className="toolbar-group">
         <button
-          className={`toolbar-button ${isFormatActive("h1") ? "active" : ""}`}
+          className="toolbar-button"
           onClick={() => formatBlock("h1")}
           title="Heading 1"
         >
           H1
         </button>
         <button
-          className={`toolbar-button ${isFormatActive("h2") ? "active" : ""}`}
+          className="toolbar-button"
           onClick={() => formatBlock("h2")}
           title="Heading 2"
         >
           H2
         </button>
         <button
-          className={`toolbar-button ${isFormatActive("h3") ? "active" : ""}`}
+          className="toolbar-button"
           onClick={() => formatBlock("h3")}
           title="Heading 3"
         >
@@ -139,18 +145,14 @@ const Toolbar: React.FC<ToolbarProps> = ({
       </div>
       <div className="toolbar-group">
         <button
-          className={`toolbar-button ${
-            isFormatActive("insertUnorderedList") ? "active" : ""
-          }`}
+          className="toolbar-button"
           onClick={() => execCommand("insertUnorderedList")}
           title="Bullet List"
         >
           • List
         </button>
         <button
-          className={`toolbar-button ${
-            isFormatActive("insertOrderedList") ? "active" : ""
-          }`}
+          className="toolbar-button"
           onClick={() => execCommand("insertOrderedList")}
           title="Numbered List"
         >
@@ -159,16 +161,14 @@ const Toolbar: React.FC<ToolbarProps> = ({
       </div>
       <div className="toolbar-group">
         <button
-          className={`toolbar-button ${
-            isFormatActive("blockquote") ? "active" : ""
-          }`}
+          className="toolbar-button"
           onClick={() => formatBlock("blockquote")}
           title="Quote Block"
         >
           Quote
         </button>
         <button
-          className={`toolbar-button ${isFormatActive("pre") ? "active" : ""}`}
+          className="toolbar-button"
           onClick={insertCodeBlock}
           title="Code Block"
         >
